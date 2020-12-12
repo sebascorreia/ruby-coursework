@@ -17,7 +17,7 @@ class BandsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create band" do
     assert_difference('Band.count') do
-      post bands_url, params: { band: { name: @band.name } }
+        post bands_url, params: { band: { name: @band.name + " create"} }
     end
 
     assert_redirected_to band_url(Band.last)

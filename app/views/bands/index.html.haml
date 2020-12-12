@@ -10,6 +10,7 @@
 
   %tbody
     - @bands.each do |band|
+      -puts band.id
       %tr
         %td= band.name
         %td= link_to 'Show', band

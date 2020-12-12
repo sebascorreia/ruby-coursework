@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+pixies = Band.where(name:'Pixies').first
+pixies.delete if pixies
+
+bands = Band.create([name:'Pixies'])
