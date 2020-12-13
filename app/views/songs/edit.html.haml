@@ -1,0 +1,7 @@
+%h1 Editing song
+
+= render 'form'
+
+= link_to 'Show', band_album_song_path(@band.id,@album.id,@song)
+\|
+= link_to 'Back', band_album_songs_path(@band.id,@album.id)

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :bands do
-    resources :albums
+    resources :albums do
+      resources :songs
+    end
   end
 
   get 'home/home'

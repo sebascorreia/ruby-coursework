@@ -12,7 +12,7 @@ class AlbumsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get new_album_url
+    get new_band_album_url
     assert_response :success
   end
 

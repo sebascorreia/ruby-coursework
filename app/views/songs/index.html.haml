@@ -1,0 +1,29 @@
+%h1 Listing songs
+
+%table
+  %thead
+    %tr
+      %th Album
+      %th Name
+      %th Lyrics
+      %th Minutes
+      %th Seconds
+      %th
+      %th
+      %th
+
+  %tbody
+    - @songs.each do |song|
+      %tr
+        %td= song.album
+        %td= song.name
+        %td= song.lyrics
+        %td= song.minutes
+        %td= song.seconds
+        %td= link_to 'Show', band_album_song_path(@band.id,@album.id, song)
+        %td= link_to 'Edit', edit_band_album_song_path(@band.id,@album.id, song)
+        %td= link_to 'Destroy', band_album_song_path(@band.id,@album.id, song), method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Song', new_band_album_song_path
