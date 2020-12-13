@@ -13,7 +13,7 @@
       -puts band.id
       %tr
         %td= band.name
-        %td= link_to 'Show', band
+        %td= link_to 'Show', band_albums_path(band.id)
         %td= link_to 'Edit', edit_band_path(band)
         %td= link_to 'Destroy', band, method: :delete, data: { confirm: 'Are you sure?' }
 

@@ -11,16 +11,18 @@
       %th
 
   %tbody
-    - @albums.each do |album|
-      -next if album.band.id == @band.id
+    - @band.albums.each do |album|
+
       %tr
         %td= album.band.name
         %td= album.name
         %td= album.year
-        %td= link_to 'Show', album
-        %td= link_to 'Edit', edit_album_path(album)
-        %td= link_to 'Destroy', album, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', band_album_path(@band.id,album.id)
+        %td= link_to 'Edit', edit_band_album_path(@band.id,album.id)
+        %td= link_to 'Destroy', band_album_path(@band.id, album.id), method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
+
+= link_to 'Add Album', new_band_album_path(@band.id)
 
 = link_to 'Back to Bands', bands_path

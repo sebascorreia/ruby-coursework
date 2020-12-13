@@ -1,6 +1,7 @@
 class AlbumsController < ApplicationController
   before_action :set_album, only: [:show, :edit, :update, :destroy]
   before_action :set_band, only:[:new, :create]
+  before_action :find_band
   # GET /albums
   # GET /albums.json
   def index
@@ -14,7 +15,7 @@ class AlbumsController < ApplicationController
 
   # GET /albums/new
   def new
-    @album = @band.albums.new
+    @album = Album.new
   end
 
   # GET /albums/1/edit
@@ -28,8 +29,8 @@ class AlbumsController < ApplicationController
     @album = @band.albums.new(album_params)
 
     respond_to do |format|
-      if @album.save!
-        format.html { redirect_to @album, notice: 'Album was successfully created.' }
+      if @album.save
+        format.html { redirect_to band_albums_path(@band.id), notice: 'Album was successfully created.' }
         format.json { render :show, status: :created, location: @album }
       else
         format.html { render :new }
@@ -43,7 +44,7 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
-        format.html { redirect_to @album, notice: 'Album was successfully updated.' }
+        format.html { redirect_to band_albums_path(@band.id), notice: 'Album was successfully updated.' }
         format.json { render :show, status: :ok, location: @album }
       else
         format.html { render :edit }
@@ -57,7 +58,7 @@ class AlbumsController < ApplicationController
   def destroy
     @album.destroy
     respond_to do |format|
-      format.html { redirect_to albums_url, notice: 'Album was successfully destroyed.' }
+      format.html { redirect_to band_albums_path(@band.id), notice: 'Album was successfully destroyed.' }
       format.js {flash[:notice] = 'Album was successfully destroyed.'}
       format.json { head :no_content }
     end
@@ -70,6 +71,10 @@ class AlbumsController < ApplicationController
         puts params.inspect
       @band = Band.find_by(id: params[:band_id]) ||
       Band.find(album_params[:band_id])
+    end
+
+    def find_band
+      @band= Band.find(params[:band_id])
     end
 
     def set_album
