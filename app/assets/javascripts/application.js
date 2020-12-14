@@ -17,7 +17,7 @@
 //= require turbolinks
 //= require_tree .
 
-function ValidateBandForm()
+function ValidateBandForm() //jquery validation for the forms
 {
   $('#BandForm').validate({
     rules:{
@@ -34,7 +34,7 @@ function ValidateAlbumForm()
   $('#AlbumForm').validate({
     rules:{
       'album[name]': { required: true},
-      'album[year]': {min:1900, max:2021},
+      'album[year]': {min:1900, max:2021}, //resonable year range for albums
     },
     messages: {
       'album[name]': { required: "You must enter the name of the album."},
@@ -49,7 +49,7 @@ function ValidateSongForm()
     rules:{
       'song[name]': { required: true},
       'song[minutes]': {min:0},
-      'song[seconds]': {min:0, max:60},
+      'song[seconds]': {min:0, max:60},//cant have more than 60 seconds in a minute
     },
     messages: {
       'song[name]': { required: "You must enter the name of the song."},
@@ -65,7 +65,7 @@ function ValidateContactForm()
   $('#ContactForm').validate({
     rules:{
       'contact[name]': { required: true},
-      'contact[email]': {required: true, email:true},
+      'contact[email]': {required: true, email:true}, //must be valid email
       'contact[message]':{required: true},
     },
     messages: {
@@ -75,6 +75,7 @@ function ValidateContactForm()
     }
   });
 }
+//accessibility options, I rushed it so it isnt very good.
 function SetFontSize(val){
   $("*").each(function(i,e){e.style.fontSize = val});
 }
@@ -90,7 +91,7 @@ function SetPageStyle(val){
     $("*").each(function(i,e){e.style.color = "white"});
   }
 }
-
+//Sidebar code
 function openNav() {
   document.getElementById("mySidebar").style.width = "250px";
   document.getElementById("main").style.marginLeft = "250px";
@@ -105,7 +106,7 @@ function closeNav() {
   document.getElementById("main_content").style.marginLeft = "0";
 }
 
-$(document).ready(function(){
+$(document).ready(function(){ //checks which form it is in to validate.
   if (document.getElementById("BandForm")){
     ValidateBandForm();
   }

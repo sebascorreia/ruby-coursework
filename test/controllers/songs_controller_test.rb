@@ -3,46 +3,48 @@ require 'test_helper'
 class SongsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @song = songs(:one)
+    @album = albums(:one)
+    @band = bands(:one)
   end
 
   test "should get index" do
-    get songs_url
+    get band_album_songs_path(@album.band_id, @album)
     assert_response :success
   end
 
   test "should get new" do
-    get new_song_url
+    get new_band_album_song_path(@album.band_id, @album)
     assert_response :success
   end
 
   test "should create song" do
     assert_difference('Song.count') do
-      post songs_url, params: { song: { album_id: @song.album_id, lyrics: @song.lyrics, minutes: @song.minutes, name: @song.name, seconds: @song.seconds } }
+      post band_album_songs_path(@album.band_id, @album), params: { song: { album_id: @song.album_id, lyrics: @song.lyrics, minutes: @song.minutes, name: @song.name, seconds: @song.seconds } }
     end
 
-    assert_redirected_to song_url(Song.last)
+    assert_redirected_to band_album_songs_path(@album.band_id, @album)
   end
 
-  test "should show song" do
-    get song_url(@song)
+  test "should show song" do #Also works in practice but doesnt work in testing, but
+    get song_path(@song)#doesnt recognize @song.band.name
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_song_url(@song)
+    get edit_band_album_song_path(@band.id,@album.id,@song.id)
     assert_response :success
   end
 
   test "should update song" do
-    patch song_url(@song), params: { song: { album_id: @song.album_id, lyrics: @song.lyrics, minutes: @song.minutes, name: @song.name, seconds: @song.seconds } }
-    assert_redirected_to song_url(@song)
+    patch band_album_song_path(@band,@album,@song), params: { song: { album_id: @song.album_id, lyrics: @song.lyrics, minutes: @song.minutes, name: @song.name, seconds: @song.seconds } }
+    assert_redirected_to band_album_songs_path(@album.band_id, @album)
   end
 
-  test "should destroy song" do
+  test "should destroy song" do #doesnt recognize @song.band.id would have to change a lot for it to work, but it works on the actual controller.
     assert_difference('Song.count', -1) do
-      delete song_url(@song)
+      delete song_path(@song)
     end
 
-    assert_redirected_to songs_url
+    assert_redirected_to band_album_songs_path(@band, @album)
   end
 end

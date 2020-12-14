@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  band: band1
+  band_id: 1
   name: album1
   year: 1
 
 two:
-  band: band2
+  band_id: 2
   name: album2
   year: 1

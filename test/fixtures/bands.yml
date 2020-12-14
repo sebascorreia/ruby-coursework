@@ -2,6 +2,8 @@
 
 one:
   name: Band 1
+  id: 1
 
 two:
   name: Band 2
+  id: 2
