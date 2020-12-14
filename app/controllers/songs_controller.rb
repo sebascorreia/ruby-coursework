@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :update, :destroy]
   before_action :set_album, only:[:new, :create]
-  before_action :find_album, only:[:new, :create, :index, :edit, :update]
+  before_action :find_album, only:[:new, :create, :index, :edit, :update]#finds album  to redirect to previous views.
   #before_action :find_band
   # GET /songs
   # GET /songs.json
@@ -28,9 +28,8 @@ class SongsController < ApplicationController
   # POST /songs.json
   def create
     @song = Song.new(song_params)
-    puts @song.inspect
     respond_to do |format|
-      if @song.save!
+      if @song.save! #used for debugging
         format.html { redirect_to band_album_songs_path(@song.band.id,@song.album.id), notice: 'Song was successfully created.' }
         format.json { render :show, status: :created, location: @song }
       else

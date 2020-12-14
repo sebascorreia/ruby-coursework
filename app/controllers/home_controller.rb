@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   def contact
   end
 
-  def request_contact
+  def request_contact #controls contact form and sends email
     name = params[:name]
     email = params[:email]
     telephone = params[:telephone]

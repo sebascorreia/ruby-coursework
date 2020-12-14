@@ -1,7 +1,7 @@
 class AlbumsController < ApplicationController
   before_action :set_album, only: [:show, :edit, :update, :destroy]
   before_action :set_band, only:[:new, :create]
-  before_action :find_band, only:[:new, :create, :index, :edit, :update]
+  before_action :find_band, only:[:new, :create, :index, :edit, :update] #find band to be able to redirect back to previous forms and other stuff
   # GET /albums
   # GET /albums.json
   def index
@@ -26,11 +26,11 @@ class AlbumsController < ApplicationController
   # POST /albums.json
   def create
 
-    @album = @band.albums.new(album_params)
+    @album = @band.albums.new(album_params) # create album inside of band
 
     respond_to do |format|
       if @album.save
-        format.html { redirect_to band_albums_path(@album.band_id), notice: 'Album was successfully created.' }
+        format.html { redirect_to band_albums_path(@album.band_id), notice: 'Album was successfully created.' } #redirect to albums index
         format.json { render :show, status: :created, location: @album }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
-        format.html { redirect_to band_albums_path(@album.band_id), notice: 'Album was successfully updated.' }
+        format.html { redirect_to band_albums_path(@album.band_id), notice: 'Album was successfully updated.' } #redirect to albums index
         format.json { render :show, status: :ok, location: @album }
       else
         format.html { render :edit }
@@ -66,9 +66,7 @@ class AlbumsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_band
-        #puts album_params.inspect
-        puts params.inspect
+    def set_band  #find the albums band
       @band = Band.find_by(id: params[:band_id]) ||
       Band.find(album_params[:band_id])
     end

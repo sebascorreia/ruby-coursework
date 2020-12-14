@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :bands do
+  resources :bands do #nesting resources to define better routes
     resources :albums, only: [:index, :new,:edit, :update, :create] do
-      resources :songs, only: [:index, :new, :create, :edit, :update]
+      resources :songs, only: [:index, :new, :create, :edit, :update] #only use the necessary resources
     end
   end
   resources :albums, only:[:show,  :destroy]
