@@ -1,10 +1,9 @@
 %h1= @album.name + " by " + @album.band.name
 
-%table
+%table{:id => "table"}
   %thead
     %tr
       %th Name
-      %th Lyrics
       %th Minutes
       %th Seconds
       %th
@@ -12,15 +11,20 @@
       %th
 
   %tbody
-    - @album.songs.each do |song|
+    - @album.songs.each_with_index do |song,i|
+      -rowclass= ""
+
+      -if i % 2 == 0
+        - rowclass = "even"
+      -else
+        - rowclass = "odd"
       %tr
-        %td= song.name
-        %td= song.lyrics
-        %td= song.minutes
-        %td= song.seconds
-        %td= link_to 'Show', song
-        %td= link_to 'Edit', edit_band_album_song_path(song.band,song.album,song.id)
-        %td= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' }
+        %td{:class => "#{rowclass}"}= song.name
+        %td{:class => "#{rowclass}"}= song.minutes
+        %td{:class => "#{rowclass}"}= song.seconds
+        %td{:class => "#{rowclass}"}= link_to 'Show', song
+        %td{:class => "#{rowclass}"}= link_to 'Edit', edit_band_album_song_path(song.band,song.album,song.id)
+        %td{:class => "#{rowclass}"}= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 

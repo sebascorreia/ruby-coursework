@@ -1,9 +1,9 @@
-%h1 Listing albums
+%h1
+  = "Albums by " + @band.name
 
-%table
+%table{:id => "table"}
   %thead
     %tr
-      %th Band
       %th Name
       %th Year
       %th
@@ -11,15 +11,20 @@
       %th
 
   %tbody
-    - @band.albums.each do |album|
+    - @band.albums.each_with_index do |album,i|
+      -rowclass= ""
+
+      -if i % 2 == 0
+        - rowclass = "even"
+      -else
+        -rowclass = "odd"
 
       %tr
-        %td= album.band.name
-        %td= album.name
-        %td= album.year
-        %td= link_to 'Show', band_album_songs_path(@band.id,album.id)
-        %td= link_to 'Edit', edit_album_path(album.id)
-        %td= link_to 'Destroy', album_path(album.id), method: :delete, data: { confirm: 'Are you sure?' }
+        %td{:class => "#{rowclass}"}= album.name
+        %td{:class => "#{rowclass}"}= album.year
+        %td{:class => "#{rowclass}"}= link_to 'Show', band_album_songs_path(@band.id,album.id)
+        %td{:class => "#{rowclass}"}= link_to 'Edit', edit_band_album_path(@band,album)
+        %td{:class => "#{rowclass}"}= link_to 'Destroy', album_path(album.id), method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 

@@ -73,9 +73,53 @@
  #main_content {
    transition: margin-left .5s; /* If you want a transition effect */
    padding: 20px;
+   font-size: large;
+   text-align: center;
  }
+ #table{
+   transition: margin-left .5s; /* If you want a transition effect */
+   margin-left: auto;
+   margin-right: auto;
+   table-layout: auto;
+   width: 500px;
+ }
+ td.odd{
+   font-size: large;
+   background-color: #FFF
+ }
+
+ td.even{
+   font-size: large;
+   background-color: #CCC
+ }
+
+ #footer{
+   text-align: right
+ }
+
+#songshow{
+  p{
+  font-size: large;
+  padding: 20px;
+}}
+#accessibility{
+  width: 20px
+}
  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
  @media screen and (max-height: 450px) {
    .sidebar {padding-top: 15px;}
    .sidebar a {font-size: 18px;}
+ }
+
+ $font: 'Times New Roman', 'Times', serif;
+ $color: #FFFFFF;
+ body {
+   font-family: $font;
+   background-color: $color;
+   margin: 10px;
+   padding: 10px;
+ }
+
+ h1 {
+ text-transform: uppercase;
  }

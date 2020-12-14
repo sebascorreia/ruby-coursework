@@ -1,21 +1,27 @@
 %h1 All Bands List
 
-%table
+%table{:id => "table"}
   %thead
     %tr
-      %th 
+      %th
       %th
       %th
       %th
 
   %tbody
-    - @bands.each do |band|
-      -puts band.id
+    - @bands.each_with_index do |band,i|
+      -rowclass= ""
+
+      -if i % 2 == 0
+        - rowclass = "even"
+      -else
+        - rowclass = "odd"
+
       %tr
-        %td= band.name
-        %td= link_to 'Show', band_albums_path(band.id)
-        %td= link_to 'Edit', edit_band_path(band)
-        %td= link_to 'Destroy', band, method: :delete, data: { confirm: 'Are you sure?' }
+        %td{:class => "#{rowclass}"}= band.name
+        %td{:class => "#{rowclass}"}= link_to 'Show', band_albums_path(band.id)
+        %td{:class => "#{rowclass}"}= link_to 'Edit', edit_band_path(band)
+        %td{:class => "#{rowclass}"}= link_to 'Destroy', band, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 

@@ -7,12 +7,12 @@ class AlbumsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get albums_url
+    get band_albums_path(@band,@album)
     assert_response :success
   end
 
   test "should get new" do
-    get new_band_album_url
+    get new_band_album_path(@band)
     assert_response :success
   end
 
@@ -20,7 +20,7 @@ class AlbumsControllerTest < ActionDispatch::IntegrationTest
     #puts @band.inspect
     #puts @album.inspect
     assert_difference('Album.count') do
-      post albums_url, params: { album: { band_id: @band.id, name: @album.name, year: @album.year } }
+      post band_albums_path(@album), params: { album: { band_id: @band.id, name: @album.name, year: @album.year } }
     end
 
     assert_redirected_to album_path(assigns(:album))

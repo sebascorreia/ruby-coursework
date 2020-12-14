@@ -1,20 +1,14 @@
 %p#notice= notice
 
 %h1
-  = @song.album.name + " by the " + @song.band.name
-%p
-  %b Name:
-  = @song.name
-%p
-  %b Lyrics:
-  = @song.lyrics
-%p
-  %b Minutes:
-  = @song.minutes
-%p
-  %b Seconds:
-  = @song.seconds
-
-= link_to 'Edit', edit_band_album_song_path(@song.band,@song.album,@song.id)
-\|
-= link_to 'Back', band_album_songs_path(@song.band,@song.album )
+  = @song.name + " by the " + @song.band.name
+%div#songshow
+  %p
+    %b Lyrics:
+    = @song.lyrics
+  %p
+    %b Duration:
+    = @song.minutes.to_s + ":" + @song.seconds.to_s
+  = link_to 'Edit', edit_band_album_song_path(@song.band,@song.album,@song.id)
+  \|
+  = link_to 'Back', band_album_songs_path(@song.band,@song.album )

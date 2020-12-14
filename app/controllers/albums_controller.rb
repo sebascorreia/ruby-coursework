@@ -1,7 +1,7 @@
 class AlbumsController < ApplicationController
   before_action :set_album, only: [:show, :edit, :update, :destroy]
   before_action :set_band, only:[:new, :create]
-  before_action :find_band, only:[:new, :create, :index]
+  before_action :find_band, only:[:new, :create, :index, :edit, :update]
   # GET /albums
   # GET /albums.json
   def index

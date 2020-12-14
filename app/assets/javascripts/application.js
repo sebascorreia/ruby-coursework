@@ -12,9 +12,84 @@
 //
 //= require jquery3
 //= require jquery_ujs
+//= require jquery.validate
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+function ValidateBandForm()
+{
+  $('#BandForm').validate({
+    rules:{
+      'band[name]': { required: true},
+    },
+    messages: {
+      'band[name]': { required: "You must enter the name of the band."},
+    }
+  });
+}
+
+function ValidateAlbumForm()
+{
+  $('#AlbumForm').validate({
+    rules:{
+      'album[name]': { required: true},
+      'album[year]': {min:1900, max:2021},
+    },
+    messages: {
+      'album[name]': { required: "You must enter the name of the album."},
+      'album[year]': { min:"Enter a year above 1900", max:"Enter a year bellow 2021"},
+    }
+  });
+}
+
+function ValidateSongForm()
+{
+  $('#SongForm').validate({
+    rules:{
+      'song[name]': { required: true},
+      'song[minutes]': {min:0},
+      'song[seconds]': {min:0, max:60},
+    },
+    messages: {
+      'song[name]': { required: "You must enter the name of the song."},
+      'song[minutes]': { min:"Must be above 0"},
+      'song[seconds]': {min:"Must be above 0", max:"Must be bellow 60"},
+    }
+  });
+}
+
+
+function ValidateContactForm()
+{
+  $('#ContactForm').validate({
+    rules:{
+      'contact[name]': { required: true},
+      'contact[email]': {required: true, email:true},
+      'contact[message]':{required: true},
+    },
+    messages: {
+      'contact[name]': { required: "You must enter your name."},
+      'contact[email]': { email:"Enter a valid email.", required:"You must enter your email."},
+      'contact[message]':{required: "You must enter a message"},
+    }
+  });
+}
+function SetFontSize(val){
+  $("*").each(function(i,e){e.style.fontSize = val});
+}
+
+function SetPageStyle(val){
+
+  if(val === 'Normal'){
+    $("*").each(function(i,e){e.style.background = "white"});
+    $("*").each(function(i,e){e.style.color = "black"});
+  }
+  else{
+    $("*").each(function(i,e){e.style.background = "black"});
+    $("*").each(function(i,e){e.style.color = "white"});
+  }
+}
 
 function openNav() {
   document.getElementById("mySidebar").style.width = "250px";
@@ -29,3 +104,18 @@ function closeNav() {
   document.getElementById("main").style.marginLeft = "0";
   document.getElementById("main_content").style.marginLeft = "0";
 }
+
+$(document).ready(function(){
+  if (document.getElementById("BandForm")){
+    ValidateBandForm();
+  }
+  if (document.getElementById("AlbumForm")){
+    ValidateAlbumForm();
+  }
+  if (document.getElementById("SongForm")){
+    ValidateSongForm();
+  }
+  if (document.getElementById("ContactForm")){
+    ValidateContactForm();
+  }
+});
