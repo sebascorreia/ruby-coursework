@@ -1,8 +1,7 @@
 %p#notice= notice
 
-%p
-  %b Album:
-  = @song.album
+%h1
+  = @song.album.name + " by the " + @song.band.name
 %p
   %b Name:
   = @song.name
@@ -16,6 +15,6 @@
   %b Seconds:
   = @song.seconds
 
-= link_to 'Edit', edit_band_album_song_path(@band.id,@album.id,@song)
+= link_to 'Edit', edit_band_album_song_path(@song.band,@song.album,@song.id)
 \|
-= link_to 'Back', band_album_songs_path
+= link_to 'Back', band_album_songs_path(@song.band,@song.album )

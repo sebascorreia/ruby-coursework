@@ -1,8 +1,7 @@
 class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :update, :destroy]
   before_action :set_album, only:[:new, :create]
-  #before_action :set_band, only:[:new, :create]
-  before_action :find_album
+  before_action :find_album, only:[:new, :create, :index, :edit, :update]
   #before_action :find_band
   # GET /songs
   # GET /songs.json
@@ -22,16 +21,17 @@ class SongsController < ApplicationController
 
   # GET /songs/1/edit
   def edit
+    puts @song.inspect
   end
 
   # POST /songs
   # POST /songs.json
   def create
-    @song = @band.album.song.new(song_params)
-
+    @song = Song.new(song_params)
+    puts @song.inspect
     respond_to do |format|
-      if @song.save
-        format.html { redirect_to band_album_songs_path(@band.id,@album.id), notice: 'Song was successfully created.' }
+      if @song.save!
+        format.html { redirect_to band_album_songs_path(@song.band.id,@song.album.id), notice: 'Song was successfully created.' }
         format.json { render :show, status: :created, location: @song }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class SongsController < ApplicationController
   def update
     respond_to do |format|
       if @song.update(song_params)
-        format.html { redirect_to band_album_songs_path(@band.id,@album.id), notice: 'Song was successfully updated.' }
+        format.html { redirect_to band_album_songs_path(@song.band.id,@song.album.id), notice: 'Song was successfully updated.' }
         format.json { render :show, status: :ok, location: @song }
       else
         format.html { render :edit }
@@ -59,7 +59,7 @@ class SongsController < ApplicationController
   def destroy
     @song.destroy
     respond_to do |format|
-      format.html { redirect_to band_album_songs_path(@band.id,@album.id), notice: 'Song was successfully destroyed.' }
+      format.html { redirect_to band_album_songs_path(@song.band.id,@song.album.id), notice: 'Song was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -79,13 +79,6 @@ class SongsController < ApplicationController
       @album = Album.find(params[:album_id])
     end
 
-     def set_band
-       @band = Band.find_by(id: params[@album.band_id])
-     end
-
-     def find_band
-       @band = Band.find(params[@album.band_id])
-     end
     # Only allow a list of trusted parameters through.
     def song_params
       params.require(:song).permit(:album_id, :name, :lyrics, :minutes, :seconds)

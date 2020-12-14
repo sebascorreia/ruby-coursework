@@ -1,4 +1,4 @@
-= form_for [@band, @album] do |f|
+= form_with model: [@band, @album] do |f|
   - if @album.errors.any?
     #error_explanation
       %h2= "#{pluralize(@album.errors.count, "error")} prohibited this album from being saved:"
@@ -8,8 +8,8 @@
 
   .field
     = f.label :band
-    %p= @band.name
-    = f.hidden_field :band_id, value: @band.id
+    %p= @album.band.name
+    = f.hidden_field :band_id, value: @album.band_id
   .field
     = f.label :name
     = f.text_field :name

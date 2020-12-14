@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
   resources :bands do
-    resources :albums do
-      resources :songs
+    resources :albums, only: [:index, :new, :create] do
+      resources :songs, only: [:index, :new, :create, :edit, :update]
     end
   end
+  resources :albums, only:[:show, :edit, :update, :destroy]
+  resources :songs, only:[:show, :destroy]
 
   get 'home/home'
   get 'albums/band_albums'
-  get 'contact', to: 'home#contact'
+  get '/contact'=> 'home#contact'
   post 'request_contact', to: 'home#request_contact'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
